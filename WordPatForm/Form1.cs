@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using static WordPatForm.NumericExtensions;
+using static WordPatForm.HelperExtensions;
 
 namespace WordPatForm
 {
@@ -46,8 +46,7 @@ namespace WordPatForm
             //txtCipher.Text = "RGY AFNR TFKFPSHK NYTRXFJ FS D OFFWNRFPY XN RGY EXNBKDU FS NS OFFWN, VXRG DPR OU BYFBKY KXWY VDUJY ODPKFV, VGF XN D RYPPXSXT DPRXNR.";
 
 
-
-            LanguageSignature English = new LanguageSignature("English", new Dictionary<char, double>
+            var english = new LanguageSignature("English", new Dictionary<char, double>
             {
                 {'a', 0.08167},
                 {'b', 0.01492},
@@ -78,21 +77,6 @@ namespace WordPatForm
             });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             var ciphertext = txtCipher.Text;
 
             ciphertext = ciphertext.ToLower();
@@ -104,18 +88,25 @@ namespace WordPatForm
                 .Trim().Split(' ');
 
             var codelist = temp.Select(x => new Codeword(x, pd)).ToList();
-
             var tester = new Work(ciphertext, codelist, txtSolve);
             var results = tester.Go();
-           // txtSolve.Text =txtSolve.Text + (CalculateDistanceFromSignature(English, CalculateCharacterFrequencies(ciphertext))) +Environment.NewLine;
-            foreach (var textresult in results)
+            var sortedresults = results.Select(textresult => new SortedResults(textresult, CalculateDistanceFromSignature(english, CalculateCharacterFrequencies(textresult)))).OrderBy(o=>o.Frequency).ToList();
+            foreach (var x in sortedresults)
             {
-
-                txtSolve.Text = txtSolve.Text + textresult +
-                                (CalculateDistanceFromSignature(English, CalculateCharacterFrequencies(textresult))) +
-                                Environment.NewLine;
-
+                txtSolve.Text = txtSolve.Text + x.Solution + " " + x.Frequency + Environment.NewLine;
             }
         }
+    }
+
+    public class SortedResults {
+
+        public SortedResults(string solution, double frequency)
+        {
+            Solution = solution;
+            Frequency = frequency;
+        }
+        public string Solution { get; set; }
+        public double Frequency { get; set; }
+        
     }
 }

@@ -27,10 +27,7 @@ namespace WordPatForm
             _possibilities = temp;
         }
 
-        public Codeword()
-        {
-            
-        }
+        public Codeword(){}
         public Codeword(Codeword word)
         {
             Text = word.Text;
@@ -50,9 +47,6 @@ namespace WordPatForm
             var x = new Wordpattern(text);
             _pattern = x.GetPattern();
             _possibilities = pd.ReturnKeys(_pattern);
-         
         }
-
-
     }
 }

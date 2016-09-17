@@ -5,13 +5,12 @@ using System.Text;
 
 namespace WordPatForm
 {
-    public static class NumericExtensions
+    public static class HelperExtensions
     {
 
-     static   public LanguageSignature DetermineMostLikelyLanguage(string sample, IEnumerable<LanguageSignature> signatures)
+     public   static LanguageSignature DetermineMostLikelyLanguage(string sample, IEnumerable<LanguageSignature> signatures)
         {
             var characterFrequencies = CalculateCharacterFrequencies(sample);
-
             var closestLanguage = signatures.Select(signature => new
             {
                 Language = signature,
@@ -22,39 +21,30 @@ namespace WordPatForm
             return closestLanguage.Language;
         }
 
-
-
         public static T MinItem<T, TCompare>(this IEnumerable<T> sequence, Func<T, TCompare> comparatorSelector) where TCompare : IComparable<TCompare>
         {
-            var minItem = sequence.Aggregate(
-                sequence.First(),
-                (current, min) => comparatorSelector(current).CompareTo(comparatorSelector(min)) < 0 ? current : min);
-
-            return minItem;
+            var itemarray= sequence as T[] ?? sequence.ToArray();
+            var result = itemarray.First();
+            return itemarray.Aggregate(result, (current, item) => comparatorSelector(current).CompareTo(comparatorSelector(item)) < 0 ? current : item);
         }
 
-        static public double Sqrt(this double value)
+        public static double Sqrt(this double value)
         {
             return Math.Sqrt(value);
         }
 
        public static double CalculateDistanceFromSignature(LanguageSignature signature, IEnumerable<CharacterFrequency> characterFrequencies)
         {
-            var distance = characterFrequencies
+            return characterFrequencies
                 .Where(characterFrequency => signature.GetFrequency(characterFrequency.Character) > 0)
                 .Select(characterFrequency
                     => Math.Pow(characterFrequency.Frequency - signature.GetFrequency(characterFrequency.Character), 2))
                 .Sum().Sqrt();
-                
-            return distance;
         }
-
-
-
 
         public static  IEnumerable<CharacterFrequency> CalculateCharacterFrequencies(string sample)
         {
-            var characterFrequencies = sample
+            return sample
                 .Select(char.ToLower)
                 .GroupBy(c => c)
                 .Select(group => new CharacterFrequency
@@ -62,14 +52,11 @@ namespace WordPatForm
                     Character = group.Key,
                     Frequency = (double)group.Count() / sample.Length
                 });
-
-            return characterFrequencies;
         }
 
         public static Dictionary<char, char> CharacterMapDeepCopy(this Dictionary<char, char> charactermap)
         {
-            var tempcharactermap = charactermap.ToDictionary(x => x.Key, x => x.Value);
-            return tempcharactermap;
+            return charactermap.ToDictionary(x => x.Key, x => x.Value);
         }
 
         public static List<Codeword> GetAllNonCapitalizedCodewords(this List<Codeword> codewordList)
@@ -126,14 +113,10 @@ namespace WordPatForm
             }
         }
 
-   
-
         public static bool AllCaps(this string s)
         {
             return s != null && s.All(t => !char.IsLower(t));
         }
-
-       
 
         public static string StripPunctuation(this string s)
         {
@@ -146,11 +129,8 @@ namespace WordPatForm
             foreach (var c in sb.ToString().Where(c => !char.IsNumber(c)))
             {
                 ab.Append(c);
-
             }
             return ab.ToString();
         }
-
-
     }
 }

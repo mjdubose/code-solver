@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -25,37 +24,8 @@ namespace WordPatForm
         }
 
         public List<string> Go()
-        {
-
-            var charactermap = NumericExtensions.GetCharactermap();
-
-            var results = GetCipherLetterFrequency(_ciphertext);
-
-            foreach (var x in results)
-            {
-                _text.Text += x.Character + @" " + x.Frequency+ Environment.NewLine;
-            }
-
-
-
-            var checkstringvalue = _ciphertext;
-
-            return Solve(charactermap, checkstringvalue);
-
-
-        }
-
-        private static IEnumerable<CharacterFrequency> GetCipherLetterFrequency(string ciphertext)
-        {
-            var wordCount =
-                ciphertext.Where(char.IsLetter)
-                    .GroupBy(character => character)
-                    .Select(g => new CharacterFrequency(g.Key,(double) g.Count()/ciphertext.Length));
-
-            return wordCount.OrderByDescending(x => x.Frequency).ToList();
-
-
-
+        {var charactermap = HelperExtensions.GetCharactermap();
+            return Solve(charactermap, _ciphertext);
         }
 
         private List<string> Solve(Dictionary<char, char> charactermap, string checkstringvalue)
@@ -75,8 +45,6 @@ namespace WordPatForm
                     _solutions.Add(x);
                 }
             }
-
-
             return _solutions;
         }
 
@@ -95,7 +63,6 @@ namespace WordPatForm
             var tobereturnedList = new List<string>();
             while (temp.Count > 0)
             {
-
                 var reducedplaintextlist = new List<string> { temp[temp.Count - 1] };
                 codewordwithfewestpossiblities.SetPossiblities(reducedplaintextlist);
                 codewordwithfewestpossiblities.Text = tempstring;
@@ -116,11 +83,7 @@ namespace WordPatForm
                 else
                 {
                     _codelist.Remove(codewordwithfewestpossiblities);
-
-
                 }
-
-
             }
             return tobereturnedList;
         }
@@ -130,8 +93,8 @@ namespace WordPatForm
             var trythisone = new Codeword();
             foreach (var t in
                 wordstobetried.Select(t => new { t, x = t.GetPossibleList().Count })
-                    .Where(@t1 => @t1.x < startingthreshold && @t1.x > 0)
-                    .Select(@t1 => @t1.t))
+                    .Where(t1 => t1.x < startingthreshold && t1.x > 0)
+                    .Select(t1 => t1.t))
             {
                 startingthreshold = t.GetPossibleList().Count;
                 trythisone = t;
@@ -152,7 +115,7 @@ namespace WordPatForm
             int loopcounter = 0;
             while (loopcontinue)
             {
-                NumericExtensions.RebuildPlaintextString(charactermap, codeList, _ciphertext);
+                HelperExtensions.RebuildPlaintextString(charactermap, codeList, _ciphertext);
 
 
                 displayplaintext1 = charactermap.Aggregate(_ciphertext, (current, x) => current.Replace(x.Value, x.Key));

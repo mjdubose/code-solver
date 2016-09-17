@@ -43,8 +43,6 @@ namespace WordPatForm
                 y++;
             }
             _pattern = new string(_workingpattern);
-           
-        
        }
       
     }

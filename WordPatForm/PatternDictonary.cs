@@ -7,8 +7,8 @@ namespace WordPatForm
 {
     public class PatternDictionary
     {
-        private const string Tempfile = @"c:\temp\file.bin";
-        private const string SourceFileToBeAddedToDictionary = @"c:\temp\dictionary.txt";
+        private const string Tempfile = @"file.bin";
+        private const string SourceFileToBeAddedToDictionary = @"dictionary.txt";
         private Dictionary<string, string> _dictionary;
         //FileStream fileStream = new FileStream(tempfile, FileMode.Open);
         private string _stringtobepatterned;
@@ -58,7 +58,7 @@ namespace WordPatForm
                 select k;
 
             var x = items.ToList();
-            File.WriteAllLines(@"C:\Temp\Dictionary.txt", x);
+            File.WriteAllLines(@"Dictionary.txt", x);
         }
 
         public void Edit()
@@ -72,18 +72,20 @@ namespace WordPatForm
                 Console.WriteLine(@"Enter Delete to delete a dictionary key.");
                 var choice = Console.ReadLine();
 
-                switch (choice)
+                if (choice == "Quit")
                 {
-                    case "Quit":
-                        quit = true;
-                        break;
-                    case "Serialize":
-                        Serialize();
-                        break;
-                    case "Write":
-                        WriteToTextFile();
-                        break;
-                    case "Delete":
+                    quit = true;
+                }
+                else if (choice == "Serialize")
+                {
+                    Serialize();
+                }
+                else if (choice == "Write")
+                {
+                    WriteToTextFile();
+                }
+                else if (choice == "Delete")
+                {
                     {
                         var deleteQuit = false;
                         while (deleteQuit != true)
@@ -98,7 +100,6 @@ namespace WordPatForm
                             if (choice != null) _dictionary.Remove(choice);
                         }
                     }
-                        break;
                 }
             }
         }

@@ -2,9 +2,7 @@
 {
     public class CharacterFrequency
     {
-        public CharacterFrequency()
-        {
-        }
+        public CharacterFrequency() {}
 
         public CharacterFrequency(char character, double frequency)
         {

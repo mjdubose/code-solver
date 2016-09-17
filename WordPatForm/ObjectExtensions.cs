@@ -73,11 +73,7 @@ namespace WordPatForm
         {
             return ReferenceEquals(x, y);
         }
-        public override int GetHashCode(object obj)
-        {
-            if (obj == null) return 0;
-            return obj.GetHashCode();
-        }
+        public override int GetHashCode(object obj) => obj?.GetHashCode() ?? 0;
     }
 
     namespace ArrayExtensions

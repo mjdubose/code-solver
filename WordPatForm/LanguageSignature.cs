@@ -36,22 +36,17 @@ namespace WordPatForm
                     {'y', 0.01974},
                     {'z', 0.00074}
                 });
-
-
-
-
     }
     public class LanguageSignature
     {
         private readonly IDictionary<char, double> _frequencies;
+        public string Language { get; protected set; }
 
         public LanguageSignature(string language, IDictionary<char, double> characterFrequencies)
         {
             Language = language;
             _frequencies = characterFrequencies;
         }
-
-        public string Language { get; protected set; }
 
         public double GetFrequency(char character)
         {
