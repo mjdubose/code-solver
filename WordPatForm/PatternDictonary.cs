@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace WordPatForm
 {
@@ -60,50 +61,12 @@ namespace WordPatForm
                 select k;
 
             var x = items.ToList();
+            File.Delete(@"Dictionary.txt");
+         
             File.WriteAllLines(@"Dictionary.txt", x);
         }
 
-        public void Edit()
-        {
-            var quit = false;
-            while (quit != true)
-            {
-                Console.WriteLine(@"Enter Quit to quit. ");
-                Console.WriteLine(@"Enter Serialize to write new dictionary file");
-                Console.WriteLine(@"Enter Write to write out dictionary as a text file");
-                Console.WriteLine(@"Enter Delete to delete a dictionary key.");
-                var choice = Console.ReadLine();
-
-                switch (choice)
-                {
-                    case "Quit":
-                        quit = true;
-                        break;
-                    case "Serialize":
-                        Serialize();
-                        break;
-                    case "Write":
-                        WriteToTextFile();
-                        break;
-                    case "Delete":
-                    {
-                        var deleteQuit = false;
-                        while (deleteQuit != true)
-                        {
-                            Console.WriteLine(@"Enter the key to delete");
-                            Console.WriteLine(@"Enter Quit to step out one level");
-                            choice = Console.ReadLine();
-                            if (choice == "Quit")
-                            {
-                                deleteQuit = true;
-                            }
-                            if (choice != null) _dictionary.Remove(choice);
-                        }
-                    }
-                        break;
-                }
-            }
-        }
+      
 
         private void Deserialize()
         {
