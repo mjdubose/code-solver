@@ -16,12 +16,13 @@ namespace WordPatForm
         private void btnSolve_Click(object sender, EventArgs e)
         {
             txtSolve.Text = "";
-            var //pd  = new PatternDictionary(@"C:\\temp\\source.txt");
+            var pd  = new PatternDictionary(@"dictionary.txt");
 
-                pd = new PatternDictionary();
 
-            //  pd.Edit();
-            //  pd.WriteToTextFile();
+
+              //  pd.Edit();
+              pd.WriteToTextFile();
+              pd = new PatternDictionary();
 
             // var ciphertext = "Q MYQAA HEOS EG OFIFTYPCFO MJPTPIM GPTFO HS QC ZCWZFCBXQHAF GQPIX PC IXFPT YPMMPEC BQC QAIFT IXF BEZTMF EG XPMIETS.";
             //  var ciphertext ="QFXRW KV GMR IFFG FL YEE RZKE VYWV GMR HKVR QYX HKVREW YV MR MNCCERV NXCRI YX FEC FYJ GIRR GYJKXA VMREGRI LIFQ GMR IYKX FL UFZRIGW KX Y QKVVKVVKUUK LEFFC.";

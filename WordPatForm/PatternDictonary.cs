@@ -8,17 +8,19 @@ namespace WordPatForm
     public class PatternDictionary
     {
         private const string Tempfile = @"file.bin";
-        private const string SourceFileToBeAddedToDictionary = @"dictionary.txt";
+       // private const string SourceFileToBeAddedToDictionary = @"dictionary.txt";
         private Dictionary<string, string> _dictionary;
         //FileStream fileStream = new FileStream(tempfile, FileMode.Open);
         private string _stringtobepatterned;
 
         public PatternDictionary(string sourcefile)
         {
-            ReadSourceFile();
+            ReadSourceFile(sourcefile);
 
             ChangeStringToPatternDictionary();
             Serialize();
+            Deserialize();
+            WriteToTextFile();
         }
 
         public PatternDictionary()
@@ -26,9 +28,9 @@ namespace WordPatForm
             Deserialize();
         }
 
-        private void ReadSourceFile()
+        private void ReadSourceFile(string sourcefile)
         {
-            _stringtobepatterned = File.ReadAllText(SourceFileToBeAddedToDictionary);
+            _stringtobepatterned = File.ReadAllText(sourcefile);
         }
 
         private void ChangeStringToPatternDictionary()
