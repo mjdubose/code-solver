@@ -2,19 +2,15 @@
 
 namespace WordPatForm
 {
-    public class Codeword
+    public class Codeword  //class that holds the ciphertext, pattern for repeating characters, list of possible words that it could be, plaintext thus far
     {
-        private string _pattern;
-         private List<string> _possibilities;
+        private List<string> _possibilities;  
 
         public string Plaintext { get; set; }
         public string Text { get; set; }
 
-        public string Pattern
-        {
-            get { return _pattern; }
-            set { _pattern = value; }
-        }
+        public string Pattern { get; set; }
+
         public List<string> GetPossibleList()
         {
             if (Text.AllCaps())
@@ -45,8 +41,8 @@ namespace WordPatForm
             Text = text;
             Plaintext = text;
             var x = new Wordpattern(text);
-            _pattern = x.GetPattern();
-            _possibilities = pd.ReturnKeys(_pattern);
+            Pattern = x.GetPattern();
+            _possibilities = pd.ReturnKeys(Pattern);
         }
     }
 }

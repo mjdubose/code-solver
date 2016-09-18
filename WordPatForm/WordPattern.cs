@@ -28,9 +28,9 @@ namespace WordPatForm
         {
             return _theString;
         }
-        public void GenerateWordPattern()
+        public void GenerateWordPattern()  //Generates the AABACA type pattern for each word (to map character repetition) 
         {
-            var y = 65;
+            var y = 65;  // using ASCII numberic values that can be incremented every time a new character is introduced
             foreach (var character in _workingstring.Where(char.IsLetter))
             {
                 for (var t = 0; t < _workingpattern.Length; t++)

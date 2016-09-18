@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WordPatForm
 {
-    public static class HelperExtensions
+    public static class HelperExtensions //helper functions for determining a possible language, finding the lowest value, generating square roots, deep copys, building character maps, etc.
     {
 
      public   static LanguageSignature DetermineMostLikelyLanguage(string sample, IEnumerable<LanguageSignature> signatures)

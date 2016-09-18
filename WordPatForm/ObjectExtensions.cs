@@ -67,7 +67,7 @@ namespace WordPatForm
         }
     }
 
-    public class ReferenceEqualityComparer : EqualityComparer<Object>
+    public class ReferenceEqualityComparer : EqualityComparer<object>
     {
         public override bool Equals(object x, object y)
         {

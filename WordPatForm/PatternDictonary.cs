@@ -72,20 +72,18 @@ namespace WordPatForm
                 Console.WriteLine(@"Enter Delete to delete a dictionary key.");
                 var choice = Console.ReadLine();
 
-                if (choice == "Quit")
+                switch (choice)
                 {
-                    quit = true;
-                }
-                else if (choice == "Serialize")
-                {
-                    Serialize();
-                }
-                else if (choice == "Write")
-                {
-                    WriteToTextFile();
-                }
-                else if (choice == "Delete")
-                {
+                    case "Quit":
+                        quit = true;
+                        break;
+                    case "Serialize":
+                        Serialize();
+                        break;
+                    case "Write":
+                        WriteToTextFile();
+                        break;
+                    case "Delete":
                     {
                         var deleteQuit = false;
                         while (deleteQuit != true)
@@ -100,6 +98,7 @@ namespace WordPatForm
                             if (choice != null) _dictionary.Remove(choice);
                         }
                     }
+                        break;
                 }
             }
         }

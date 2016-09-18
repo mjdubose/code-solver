@@ -105,7 +105,7 @@ namespace WordPatForm
             return dictionary;
         }
 
-        public override string ToString()
+        public override string ToString()  //overrides to string so that it will display a cipherwords possibilities if between 2 and 5 and the pattern of character repetition
         {
             var words = string.Empty;
             var i = HowManyPossibilities();

@@ -2,7 +2,7 @@
 
 namespace WordPatForm
 {
-    public static class LanguageSignatures
+    public static class LanguageSignatures //used to calculate how close a string is to the English language.  Values are taken from Google which has signature attributes for all the major languages
     {
         public static LanguageSignature English =
             new LanguageSignature(
