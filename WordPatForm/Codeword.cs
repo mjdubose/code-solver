@@ -36,7 +36,7 @@ namespace WordPatForm
             }
         }
    
-        public Codeword(string text,PatternDictionary pd)
+        public Codeword(string text,PatternDictionary.PatternDictionary pd)
         {
             Text = text;
             Plaintext = text;

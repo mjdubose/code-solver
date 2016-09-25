@@ -24,16 +24,12 @@ namespace HelpfulExtensions
             {
                 return Math.Sqrt(value);
             }
-
-       
-
           
 
             public static Dictionary<char, char> CharacterMapDeepCopy(this Dictionary<char, char> charactermap)
             {
                 return charactermap.ToDictionary(x => x.Key, x => x.Value);
             }
-
        
 
             public static Dictionary<char, char> GetCharactermap()

@@ -2,12 +2,14 @@
 using System.IO;
 using System.Linq;
 
-namespace WordPatForm
+namespace PatternDictionary
 {
     public class PatternDictionary
     {
+
+
         private const string Tempfile = @"file.bin";
-       // private const string SourceFileToBeAddedToDictionary = @"dictionary.txt";
+        // private const string SourceFileToBeAddedToDictionary = @"dictionary.txt";
         private Dictionary<string, string> _dictionary;
         //FileStream fileStream = new FileStream(tempfile, FileMode.Open);
         private string _stringtobepatterned;
@@ -45,7 +47,7 @@ namespace WordPatForm
                 writer.Write(_dictionary.Count);
                 foreach (var kvp in _dictionary)
                 {
-                    if ( kvp.Value == null) continue;
+                    if (kvp.Value == null) continue;
                     writer.Write(kvp.Key);
                     writer.Write(kvp.Value);
                 }
@@ -56,16 +58,16 @@ namespace WordPatForm
         public void WriteToTextFile()
         {
             var items = from k in _dictionary.Keys
-                orderby _dictionary[k] ascending
-                select k;
+                        orderby _dictionary[k] ascending
+                        select k;
 
             var x = items.ToList();
             File.Delete(@"Dictionary.txt");
-         
+
             File.WriteAllLines(@"Dictionary.txt", x);
         }
 
-      
+
 
         private void Deserialize()
         {
