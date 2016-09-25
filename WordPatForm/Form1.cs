@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using PatternDictionary;
 using static WordPatForm.HelperExtensions;
 
 namespace WordPatForm
@@ -16,13 +17,13 @@ namespace WordPatForm
         private void btnSolve_Click(object sender, EventArgs e)
         {
             txtSolve.Text = "";
-            var pd  = new PatternDictionary(@"dictionary.txt");
+           IPatternDictionary pd  = new PatternDictionary.PatternDictionary(@"dictionary.txt");
 
 
 
               //  pd.Edit();
               pd.WriteToTextFile();
-              pd = new PatternDictionary();
+              pd = new PatternDictionary.PatternDictionary();
 
             // var ciphertext = "Q MYQAA HEOS EG OFIFTYPCFO MJPTPIM GPTFO HS QC ZCWZFCBXQHAF GQPIX PC IXFPT YPMMPEC BQC QAIFT IXF BEZTMF EG XPMIETS.";
             //  var ciphertext ="QFXRW KV GMR IFFG FL YEE RZKE VYWV GMR HKVR QYX HKVREW YV MR MNCCERV NXCRI YX FEC FYJ GIRR GYJKXA VMREGRI LIFQ GMR IYKX FL UFZRIGW KX Y QKVVKVVKUUK LEFFC.";
@@ -94,7 +95,7 @@ namespace WordPatForm
             var sortedresults = results.Select(textresult => new SortedResults(textresult, CalculateDistanceFromSignature(english, CalculateCharacterFrequencies(textresult)))).OrderBy(o=>o.Frequency).ToList();
             foreach (var x in sortedresults)
             {
-                txtSolve.Text = txtSolve.Text + x.Solution + " " + x.Frequency + Environment.NewLine;
+                txtSolve.Text = txtSolve.Text + x.Solution + @" " + x.Frequency + Environment.NewLine;
             }
         }
     }

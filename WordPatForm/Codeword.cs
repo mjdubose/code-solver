@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using PatternDictionary;
 
 namespace WordPatForm
 {
@@ -36,11 +37,11 @@ namespace WordPatForm
             }
         }
    
-        public Codeword(string text,PatternDictionary pd)
+        public Codeword(string text,IPatternDictionary pd)
         {
             Text = text;
             Plaintext = text;
-            var x = new Wordpattern(text);
+            var x = new Wordpattern.Wordpattern(text);
             Pattern = x.GetPattern();
             _possibilities = pd.ReturnKeys(Pattern);
         }

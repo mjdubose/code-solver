@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 
-namespace WordPatForm
+namespace PatternDictionary
 {
-    public class PatternDictionary
+    public class PatternDictionary : IPatternDictionary
     {
         private const string Tempfile = @"file.bin";
-       // private const string SourceFileToBeAddedToDictionary = @"dictionary.txt";
         private Dictionary<string, string> _dictionary;
-        //FileStream fileStream = new FileStream(tempfile, FileMode.Open);
         private string _stringtobepatterned;
 
         public PatternDictionary(string sourcefile)
         {
             ReadSourceFile(sourcefile);
-
             ChangeStringToPatternDictionary();
             Serialize();
             Deserialize();
@@ -36,17 +31,18 @@ namespace WordPatForm
 
         private void ChangeStringToPatternDictionary()
         {
-            var gen = new PatternGenerator(_stringtobepatterned);
+            var gen = new PatternGenerator.PatternGenerator(_stringtobepatterned);
             _dictionary = gen.GetStringDictionary();
         }
 
-        public void Serialize()
+        private void Serialize()
         {
             using (var writer = new BinaryWriter(File.Open(Tempfile, FileMode.OpenOrCreate)))
             {
                 writer.Write(_dictionary.Count);
                 foreach (var kvp in _dictionary)
                 {
+                    if (kvp.Value == null) continue;
                     writer.Write(kvp.Key);
                     writer.Write(kvp.Value);
                 }
@@ -57,16 +53,13 @@ namespace WordPatForm
         public void WriteToTextFile()
         {
             var items = from k in _dictionary.Keys
-                orderby _dictionary[k] ascending
-                select k;
+                        orderby _dictionary[k] ascending
+                        select k;
 
             var x = items.ToList();
-            File.Delete(@"Dictionary.txt");
-         
+          
             File.WriteAllLines(@"Dictionary.txt", x);
         }
-
-      
 
         private void Deserialize()
         {
@@ -85,7 +78,7 @@ namespace WordPatForm
         }
 
         public List<string> ReturnKeys(string value)
-        {
+        {  
             return _dictionary.Where(pair => pair.Value.Equals(value)).Select(pair => pair.Key).ToList();
         }
 

@@ -1,9 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordPatForm", "WordPatForm\WordPatForm.csproj", "{15F960AD-1499-4A56-B90C-E4FFED7A0AA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSolverTests", "CodeSolverTests\CodeSolverTests.csproj", "{E2AA6D9C-7F16-4F27-9FA9-AABF28E3AC79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wordpattern", "Wordpattern\Wordpattern.csproj", "{9F79E3ED-22CC-485F-AAF1-E89D1C198DD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternGenerator", "PatternGenerator\PatternGenerator.csproj", "{509498A1-E9DC-4A4D-B06E-791538B9B55F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelpfulExtensions", "HelpfulExtensions\HelpfulExtensions.csproj", "{2A58E86A-B44F-4E6A-9241-F0E45890F00A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternDictionary", "PatternDictionary\PatternDictionary.csproj", "{487E6300-8C90-4ACA-A29F-D4D5D970DBAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +25,26 @@ Global
 		{15F960AD-1499-4A56-B90C-E4FFED7A0AA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15F960AD-1499-4A56-B90C-E4FFED7A0AA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15F960AD-1499-4A56-B90C-E4FFED7A0AA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2AA6D9C-7F16-4F27-9FA9-AABF28E3AC79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2AA6D9C-7F16-4F27-9FA9-AABF28E3AC79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2AA6D9C-7F16-4F27-9FA9-AABF28E3AC79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2AA6D9C-7F16-4F27-9FA9-AABF28E3AC79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F79E3ED-22CC-485F-AAF1-E89D1C198DD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F79E3ED-22CC-485F-AAF1-E89D1C198DD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F79E3ED-22CC-485F-AAF1-E89D1C198DD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F79E3ED-22CC-485F-AAF1-E89D1C198DD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{509498A1-E9DC-4A4D-B06E-791538B9B55F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{509498A1-E9DC-4A4D-B06E-791538B9B55F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{509498A1-E9DC-4A4D-B06E-791538B9B55F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{509498A1-E9DC-4A4D-B06E-791538B9B55F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A58E86A-B44F-4E6A-9241-F0E45890F00A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A58E86A-B44F-4E6A-9241-F0E45890F00A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A58E86A-B44F-4E6A-9241-F0E45890F00A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A58E86A-B44F-4E6A-9241-F0E45890F00A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{487E6300-8C90-4ACA-A29F-D4D5D970DBAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{487E6300-8C90-4ACA-A29F-D4D5D970DBAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{487E6300-8C90-4ACA-A29F-D4D5D970DBAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{487E6300-8C90-4ACA-A29F-D4D5D970DBAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

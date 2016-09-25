@@ -119,7 +119,7 @@ namespace WordPatForm
 
 
                 displayplaintext1 = charactermap.Aggregate(_ciphertext, (current, x) => current.Replace(x.Value, x.Key));
-                if (displayplaintext1 == checkstringvalue || loopcounter > 5)
+                if (displayplaintext1 == checkstringvalue || loopcounter > 15)
                 {
                     loopcontinue = false;
                 }

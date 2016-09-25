@@ -10,7 +10,7 @@ namespace WordPatForm
         private readonly Codeword _possibilites;
         private List<string> _plaintextpossibilities;
 
-        public Cipherword(PatternDictionary pd, Codeword codeword)
+        public Cipherword(PatternDictionary.PatternDictionary pd, Codeword codeword)
         {
             _plaintext = codeword.Text;
             Ciphertext = codeword.Text;
