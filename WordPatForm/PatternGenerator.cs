@@ -27,7 +27,7 @@ namespace WordPatForm
 
         private void GeneratePattern(string temp)
         {
-            var tempword = new Wordpattern(temp);
+            var tempword = new Wordpattern.Wordpattern(temp);
             if (!_stringdictionary.ContainsKey(tempword.GetWord().ToUpper()))
             {
                 _stringdictionary.Add(tempword.GetWord().ToUpper(), tempword.GetPattern()); //Adds a plaintext word and the pattern for that word into a Wordpattern object list of possibilities

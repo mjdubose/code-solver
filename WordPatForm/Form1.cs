@@ -94,7 +94,7 @@ namespace WordPatForm
             var sortedresults = results.Select(textresult => new SortedResults(textresult, CalculateDistanceFromSignature(english, CalculateCharacterFrequencies(textresult)))).OrderBy(o=>o.Frequency).ToList();
             foreach (var x in sortedresults)
             {
-                txtSolve.Text = txtSolve.Text + x.Solution + " " + x.Frequency + Environment.NewLine;
+                txtSolve.Text = txtSolve.Text + x.Solution + @" " + x.Frequency + Environment.NewLine;
             }
         }
     }

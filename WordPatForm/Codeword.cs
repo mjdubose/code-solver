@@ -40,7 +40,7 @@ namespace WordPatForm
         {
             Text = text;
             Plaintext = text;
-            var x = new Wordpattern(text);
+            var x = new Wordpattern.Wordpattern(text);
             Pattern = x.GetPattern();
             _possibilities = pd.ReturnKeys(Pattern);
         }
