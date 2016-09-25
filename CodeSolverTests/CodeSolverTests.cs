@@ -132,8 +132,17 @@ namespace CodeSolverTests
         {
             var pd = new PatternDictionary.PatternDictionary();
 
-            var x = pd.ReturnKeys("A");
-            Console.Write(x);
+            var x = pd.ReturnKeys("ABCDC");
+            foreach (var y in x)
+            {
+                Console.WriteLine(y);
+            }
+            x = pd.ReturnValues("THERE");
+            foreach (var y in x)
+            {
+                Console.WriteLine(y);
+            }
+
             Assert.Pass();
         }
     }

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace PatternDictionary
 {
-    public class PatternDictionary
+    public class PatternDictionary : IPatternDictionary
     {
         private const string Tempfile = @"file.bin";
         private Dictionary<string, string> _dictionary;
@@ -36,7 +35,7 @@ namespace PatternDictionary
             _dictionary = gen.GetStringDictionary();
         }
 
-        public void Serialize()
+        private void Serialize()
         {
             using (var writer = new BinaryWriter(File.Open(Tempfile, FileMode.OpenOrCreate)))
             {
@@ -79,7 +78,7 @@ namespace PatternDictionary
         }
 
         public List<string> ReturnKeys(string value)
-        {  Console.WriteLine(value);
+        {  
             return _dictionary.Where(pair => pair.Value.Equals(value)).Select(pair => pair.Key).ToList();
         }
 

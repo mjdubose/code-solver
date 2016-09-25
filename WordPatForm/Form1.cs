@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using PatternDictionary;
 using static WordPatForm.HelperExtensions;
 
 namespace WordPatForm
@@ -16,7 +17,7 @@ namespace WordPatForm
         private void btnSolve_Click(object sender, EventArgs e)
         {
             txtSolve.Text = "";
-            var pd  = new PatternDictionary.PatternDictionary(@"dictionary.txt");
+           IPatternDictionary pd  = new PatternDictionary.PatternDictionary(@"dictionary.txt");
 
 
 
