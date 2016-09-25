@@ -1,24 +1,21 @@
-﻿using System.Linq;
-
-namespace Wordpattern
+﻿namespace Wordpattern
 {
-   
-        public class Wordpattern
+
+    public class Wordpattern
         {
             private readonly string _theString;
-            private string _pattern;
+            private readonly string _pattern;
             private readonly char[] _workingstring;
-            private readonly char[] _workingpattern;
+          
             public Wordpattern(string String)
             {
-                String = String.Trim();
-                _theString = String.ToLower();
-                _pattern = String.ToLower();
+                _theString = String.Trim().ToLower();
+               
                 if (_theString.Length <= 0) return;
-                _workingstring = _theString.ToCharArray(0, _theString.Length);
-                _workingpattern = _theString.ToCharArray(0, _theString.Length);
-               _pattern = GenerateWordPattern(_workingstring.ToString());
-            }
+               _workingstring = _theString.ToCharArray(0, _theString.Length);
+               _pattern = GenerateWordPattern();
+           
+        }
 
             public string GetPattern()
             {
@@ -29,21 +26,28 @@ namespace Wordpattern
             {
                 return _theString;
             }
-            public string GenerateWordPattern(string workingstring)  //Generates the AABACA type pattern for each word (to map character repetition) 
-            {   var  pattern = new char[workingstring.Length];
-                var y = 65;  // using ASCII numberic values that can be incremented every time a new character is introduced
-                foreach (var character in workingstring.Where(char.IsLetter))
+            public string GenerateWordPattern()  //Generates the AABACA type pattern for each word (to map character repetition) 
+            {
+                var workingstring =  new string(_workingstring);
+                var validLetters = new[] {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+                var i = 0;
+                var validLettersIndex = 0;
+                while (i < workingstring.Length)
                 {
-                    for (var t = 0; t < pattern.Length; t++)
+                    if (char.IsLower(workingstring[i]))
                     {
-                        if (pattern[t] == character)
-                        {
-                            pattern[t] = (char)y;
-                        }
+                        workingstring = workingstring.Replace(workingstring[i], validLetters[validLettersIndex]);
+                        validLettersIndex++;
                     }
-                    y++;
+
+                    i++;
+
                 }
-               return new string(pattern);
+
+
+
+
+            return workingstring;
             }
 
         }

@@ -45,6 +45,7 @@ namespace WordPatForm
                 writer.Write(_dictionary.Count);
                 foreach (var kvp in _dictionary)
                 {
+                    if ( kvp.Value == null) continue;
                     writer.Write(kvp.Key);
                     writer.Write(kvp.Value);
                 }
