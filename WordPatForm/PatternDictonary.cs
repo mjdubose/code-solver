@@ -34,7 +34,7 @@ namespace WordPatForm
 
         private void ChangeStringToPatternDictionary()
         {
-            var gen = new PatternGenerator(_stringtobepatterned);
+            var gen = new PatternGenerator.PatternGenerator(_stringtobepatterned);
             _dictionary = gen.GetStringDictionary();
         }
 

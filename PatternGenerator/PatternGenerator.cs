@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using HelpfulExtensions;
 
-namespace WordPatForm
+
+namespace PatternGenerator
 {
-    internal class PatternGenerator
+    public class PatternGenerator
     {
-       private readonly Dictionary<string, string> _stringdictionary;
+        private readonly Dictionary<string, string> _stringdictionary;
 
         public PatternGenerator(string String)
         {
@@ -33,10 +35,11 @@ namespace WordPatForm
                 _stringdictionary.Add(tempword.GetWord().ToUpper(), tempword.GetPattern()); //Adds a plaintext word and the pattern for that word into a Wordpattern object list of possibilities
             }
         }
-
+     
         public Dictionary<string, string> GetStringDictionary()
         {
             return _stringdictionary;
         }
     }
 }
+
