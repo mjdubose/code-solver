@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HelpfulExtensions;
 using NUnit.Framework;
@@ -126,6 +127,14 @@ namespace CodeSolverTests
         {
             Assert.AreEqual("THISISALLCaPS".AllCaps(), false);
         }
+        [Test]
+        public void PatternDictionary()
+        {
+            var pd = new PatternDictionary.PatternDictionary();
 
+            var x = pd.ReturnKeys("A");
+            Console.Write(x);
+            Assert.Pass();
+        }
     }
 }

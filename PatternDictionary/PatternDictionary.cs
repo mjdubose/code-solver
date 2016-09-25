@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -6,18 +7,13 @@ namespace PatternDictionary
 {
     public class PatternDictionary
     {
-
-
         private const string Tempfile = @"file.bin";
-        // private const string SourceFileToBeAddedToDictionary = @"dictionary.txt";
         private Dictionary<string, string> _dictionary;
-        //FileStream fileStream = new FileStream(tempfile, FileMode.Open);
         private string _stringtobepatterned;
 
         public PatternDictionary(string sourcefile)
         {
             ReadSourceFile(sourcefile);
-
             ChangeStringToPatternDictionary();
             Serialize();
             Deserialize();
@@ -62,12 +58,9 @@ namespace PatternDictionary
                         select k;
 
             var x = items.ToList();
-            File.Delete(@"Dictionary.txt");
-
+          
             File.WriteAllLines(@"Dictionary.txt", x);
         }
-
-
 
         private void Deserialize()
         {
@@ -86,7 +79,7 @@ namespace PatternDictionary
         }
 
         public List<string> ReturnKeys(string value)
-        {
+        {  Console.WriteLine(value);
             return _dictionary.Where(pair => pair.Value.Equals(value)).Select(pair => pair.Key).ToList();
         }
 
