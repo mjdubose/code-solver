@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using HelpfulExtensions;
 
 
@@ -26,6 +27,24 @@ namespace PatternGenerator
                 GeneratePattern(x);
             }
         }
+
+        public string GenerateWholeCipherTextPattern(string temp)
+        {
+            var parsestrings =
+                temp.Replace('\n', ' ')
+                    .Replace('=', ' ')
+                    .Replace('$', ' ')
+                    .Replace('\r', ' ')
+                    .Replace('-', ' ')
+                    .StripPunctuationAndNumbers()
+                    .Trim();
+            var tempword = new Wordpattern.Wordpattern(parsestrings);
+            return tempword.GetPattern();
+
+        }
+
+
+
 
         private void GeneratePattern(string temp)
         {

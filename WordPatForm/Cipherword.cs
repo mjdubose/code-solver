@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using PatternDictionary;
 
 namespace WordPatForm
 {
@@ -10,7 +11,7 @@ namespace WordPatForm
         private readonly Codeword _possibilites;
         private List<string> _plaintextpossibilities;
 
-        public Cipherword(PatternDictionary.PatternDictionary pd, Codeword codeword)
+        public Cipherword(IPatternDictionary pd, Codeword codeword)
         {
             _plaintext = codeword.Text;
             Ciphertext = codeword.Text;

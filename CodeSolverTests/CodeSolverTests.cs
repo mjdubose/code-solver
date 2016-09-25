@@ -102,7 +102,15 @@ namespace CodeSolverTests
             }
             Assert.Fail();
         }
-
+        [Test]
+        public void PatternGeneratorGeneratePatternForCipherTextAsInTheWholeThing()
+        {
+           
+            var patternGenerator = new PatternGenerator.PatternGenerator("This is a test of the broadcasting system");
+            var dictionary = patternGenerator.GenerateWholeCipherTextPattern("This is a test of the broadcasting system");
+            Console.WriteLine(dictionary);
+         Assert.AreEqual("ABCD CD E AFDA GH ABF IJGEKLEDACMN DODAFP",dictionary);
+        }
         [Test]
         public void PatternGeneratorCapitalizesKeyValue()
         {
