@@ -67,6 +67,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HelpfulExtensions\HelpfulExtensions.csproj">
+      <Project>{2a58e86a-b44f-4e6a-9241-f0e45890f00a}</Project>
+      <Name>HelpfulExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PatternGenerator\PatternGenerator.csproj">
+      <Project>{509498a1-e9dc-4a4d-b06e-791538b9b55f}</Project>
+      <Name>PatternGenerator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wordpattern\Wordpattern.csproj">
       <Project>{9f79e3ed-22cc-485f-aaf1-e89d1c198dd6}</Project>
       <Name>Wordpattern</Name>

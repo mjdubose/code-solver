@@ -17,7 +17,7 @@ namespace PatternGenerator
                     .Replace('$', ' ')
                     .Replace('\r', ' ')
                     .Replace('-', ' ')
-                    .StripPunctuation()
+                    .StripPunctuationAndNumbers()
                     .Trim()
                     .Split(' ');
 

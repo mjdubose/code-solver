@@ -77,7 +77,7 @@ namespace HelpfulExtensions
                 return s != null && s.All(t => !char.IsLower(t));
             }
 
-            public static string StripPunctuation(this string s)
+            public static string StripPunctuationAndNumbers(this string s)
             {
                 var sb = new StringBuilder();
                 var ab = new StringBuilder();
