@@ -41,11 +41,7 @@
                     }
 
                     i++;
-
                 }
-
-
-
 
             return workingstring;
             }

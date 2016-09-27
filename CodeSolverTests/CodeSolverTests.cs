@@ -136,22 +136,61 @@ namespace CodeSolverTests
             Assert.AreEqual("THISISALLCaPS".AllCaps(), false);
         }
         [Test]
-        public void PatternDictionary()
+        public void PatternDictionaryCheckToSeeIfAppropriateStringValuesAreReturnedForKeyPairValues()
         {
             var pd = new PatternDictionary.PatternDictionary();
 
-            var x = pd.ReturnKeys("ABCDC");
+            var tester = true;
+
+            const string word = "INSTINCTIVELY";
+
+
+            var x = pd.ReturnKeys("ABCDABGDAJKLM");
             foreach (var y in x)
             {
-                Console.WriteLine(y);
+                if (y != word)
+                {
+                    tester =  false;
+                }
             }
-            x = pd.ReturnValues("THERE");
+            x = pd.ReturnValues(word);
             foreach (var y in x)
             {
-                Console.WriteLine(y);
+                if (y != "ABCDABGDAJKLM")
+                {
+                    tester = false;
+                }
             }
 
-            Assert.Pass();
+            Assert.AreEqual(tester, true);
+        }
+
+        [Test]
+        public void PatternDictionaryCheckToSeeIfAppropriateStringPatternsAreReturnedForMatchingWordPatterns()
+        {
+            var pd = new PatternDictionary.PatternDictionary();
+
+            var tester = true;
+
+            const string word1 = "THERE";
+            const string word2 = "WHERE";
+
+           
+            var x = pd.ReturnValues(word1);
+            var t = pd.ReturnValues(word2);
+            foreach (var y in x)
+            {
+                foreach (var s in t)
+                {
+                    if (y != s)
+                    {
+                        tester = false;
+                    }
+                }
+              
+            }
+
+            Assert.AreEqual(tester, true);
         }
     }
 }

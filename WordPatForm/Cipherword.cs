@@ -10,6 +10,7 @@ namespace WordPatForm
         private readonly string _plaintext;
         private readonly Codeword _possibilites;
         private List<string> _plaintextpossibilities;
+        private Dictionary<char,char[]> _charList;
 
         public Cipherword(IPatternDictionary pd, Codeword codeword)
         {
@@ -18,6 +19,11 @@ namespace WordPatForm
             _pattern = codeword.Pattern;
             _possibilites = codeword;
             _plaintextpossibilities = pd.ReturnKeys(_pattern);
+
+           
+          
+
+
         }
 
         public Cipherword(Codeword codeword)
@@ -37,6 +43,12 @@ namespace WordPatForm
         {
             return _plaintextpossibilities?.Count ?? 0;
         }
+
+
+        
+
+
+
 
         public Dictionary<char, char> SwapMatchingWordCharacters(Dictionary<char, char> dictionary)
         {
