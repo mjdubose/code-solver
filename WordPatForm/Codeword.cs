@@ -14,8 +14,7 @@ namespace WordPatForm
 
         public List<string> GetPossibleList()
         {
-            if (Text.AllCaps())
-                _possibilities = null;
+           
             return _possibilities;
         }
 

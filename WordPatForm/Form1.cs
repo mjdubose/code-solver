@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
-using PatternDictionary;
-using static WordPatForm.HelperExtensions;
+
 
 namespace WordPatForm
 {
@@ -16,15 +14,7 @@ namespace WordPatForm
         private void btnSolve_Click(object sender, EventArgs e)
         {
             txtSolve.Text = "";
-           IPatternDictionary pd  = //new PatternDictionary.PatternDictionary(@"dictionary.txt");
-
-
-
-              //  pd.Edit();
-           //   pd.WriteToTextFile();
-             // pd = 
-              new PatternDictionary.PatternDictionary();
-
+          
             // var ciphertext = "Q MYQAA HEOS EG OFIFTYPCFO MJPTPIM GPTFO HS QC ZCWZFCBXQHAF GQPIX PC IXFPT YPMMPEC BQC QAIFT IXF BEZTMF EG XPMIETS.";
             //  var ciphertext ="QFXRW KV GMR IFFG FL YEE RZKE VYWV GMR HKVR QYX HKVREW YV MR MNCCERV NXCRI YX FEC FYJ GIRR GYJKXA VMREGRI LIFQ GMR IYKX FL UFZRIGW KX Y QKVVKVVKUUK LEFFC.";
 
@@ -45,16 +35,16 @@ namespace WordPatForm
             // var ciphertext = "BN SK HGKS SJPD SK SKXK OCBGI, BD SCZVO GCD LK MPVVKO XKRKPXMJ, SCZVO BD? - PVLKXD KBGRDKBG ";
             //  var ciphertext ="PG XOYHLM XOYLY PZ GH TPUUYLYGRY EYXBYYG XOYHLM WGT JLWRXPRY. PG JLWRXPRY, XOYLY PZ. - MHIP EYLLW ";
             // var ciphertext = "tzebhx cf ohwhb zonetcoa qge rhzb cr njg rhzbhx oj joh njgx tzeh oj joh.";
-            //txtCipher.Text = "RGY AFNR TFKFPSHK NYTRXFJ FS D OFFWNRFPY XN RGY EXNBKDU FS NS OFFWN, VXRG DPR OU BYFBKY KXWY VDUJY ODPKFV, VGF XN D RYPPXSXT DPRXNR.";
+          //  txtCipher.Text = "RGY AFNR TFKFPSHK NYTRXFJ FS D OFFWNRFPY XN RGY EXNBKDU FS NS OFFWN, VXRG DPR OU BYFBKY KXWY VDUJY ODPKFV, VGF XN D RYPPXSXT DPRXNR.";
         
 
-            var codelist = FormatTextForProcessing(txtCipher.Text).Select(x => new Codeword(x, pd)).ToList();
-            var tester = new Work(txtCipher.Text.ToLower(), codelist, txtSolve);
+          
+            var tester = new Work(txtCipher.Text.ToLower());
             var results = tester.Go();
-            var sortedresults = results.Select(textresult => new SortedResults(textresult, CalculateDistanceFromSignature(ReturnEnglishLanguage(), CalculateCharacterFrequencies(textresult)))).OrderBy(o=>o.Frequency).ToList();
-            foreach (var x in sortedresults)
+          
+            foreach (var x in results)
             {
-                txtSolve.Text = txtSolve.Text + x.Solution + @" " + x.Frequency + Environment.NewLine;
+                txtSolve.Text = txtSolve.Text + x + Environment.NewLine;
             }
         }
     }

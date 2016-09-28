@@ -9,9 +9,10 @@ namespace WordPatForm
     {
         public static string[] FormatTextForProcessing(string thestring)
         {
-            return thestring.ToLower().Replace('\n', ' ')
+            return thestring.ToUpper().Replace('\n', ' ')
                 .Replace('\r', ' ')
                 .Replace('-', ' ')
+                .Replace("   "," ")
                 .StripPunctuation()
                 .Trim().Split(' '); 
         }
@@ -94,7 +95,7 @@ namespace WordPatForm
                 });
         }
 
-        public static Dictionary<char, char> CharacterMapDeepCopy(this Dictionary<char, char> charactermap)
+        public static Dictionary<char, List<char>> CharacterMapDeepCopy(this Dictionary<char, List<char>> charactermap)
         {
             return charactermap.ToDictionary(x => x.Key, x => x.Value);
         }
@@ -105,53 +106,41 @@ namespace WordPatForm
         }
 
 
-        public static Dictionary<char, char> GetCharactermap()
+        public static Dictionary<char, List<char>> GetCharactermap()
         {
-            var charactermap = new Dictionary<char, char>
+            return new Dictionary<char, List<char>>
             {
-                {'A', '1'},
-                {'B', '1'},
-                {'C', '1'},
-                {'D', '1'},
-                {'E', '1'},
-                {'F', '1'},
-                {'G', '1'},
-                {'H', '1'},
-                {'I', '1'},
-                {'J', '1'},
-                {'K', '1'},
-                {'L', '1'},
-                {'M', '1'},
-                {'N', '1'},
-                {'O', '1'},
-                {'P', '1'},
-                {'Q', '1'},
-                {'R', '1'},
-                {'S', '1'},
-                {'T', '1'},
-                {'U', '1'},
-                {'V', '1'},
-                {'W', '1'},
-                {'X', '1'},
-                {'Y', '1'},
-                {'Z', '1'}
+                {'A', new List<char>()},
+                {'B', new List<char>()},
+                {'C', new List<char>()},
+                {'D', new List<char>()},
+                {'E',new List<char>()},
+                {'F',new List<char>()},
+                {'G', new List<char>()},
+                {'H',new List<char>()},
+                {'I', new List<char>()},
+                {'J', new List<char>()},
+                {'K', new List<char>()},
+                {'L', new List<char>()},
+                {'M',new List<char>()},
+                {'N', new List<char>()},
+                {'O',new List<char>()},
+                {'P',new List<char>()},
+                {'Q', new List<char>()},
+                {'R', new List<char>()},
+                {'S', new List<char>()},
+                {'T', new List<char>()},
+                {'U',new List<char>()},
+                {'V', new List<char>()},
+                {'W', new List<char>()},
+                {'X',new List<char>()},
+                {'Y', new List<char>()},
+                {'Z', new List<char>()}
             };
-            return charactermap;
+           
         }
     
-        public static void RebuildPlaintextString(Dictionary<char, char> charactermap, List<Codeword> codelist, string ciphertext)
-        {
-            foreach (var keyValuePair in codelist.Select(x => new Cipherword(x))
-                .Select(tempCipherword => tempCipherword.SwapMatchingWordCharacters(charactermap))
-                .Where(tempDictionary => tempDictionary != null).SelectMany(tempDictionary => tempDictionary))
-            {
-                foreach (var codeword in codelist)
-                {
-                    codeword.Text = codeword.Text.Replace(keyValuePair.Key, keyValuePair.Value);
-                }
-                charactermap[keyValuePair.Value] = keyValuePair.Key;
-            }
-        }
+       
 
         public static bool AllCaps(this string s)
         {

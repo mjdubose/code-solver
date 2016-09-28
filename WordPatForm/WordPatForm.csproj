@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharacterFrequency.cs" />
-    <Compile Include="Cipherword.cs" />
     <Compile Include="Codeword.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

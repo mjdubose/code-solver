@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
-
+using PatternDictionary;
+using static WordPatForm.HelperExtensions;
 namespace WordPatForm
 {
   
@@ -12,123 +13,148 @@ namespace WordPatForm
         //this is where the changes must occur for depth first search and character frequency stuff.
 
         private readonly string _ciphertext;
-        private readonly List<Codeword> _codelist;
-        private List<string> _solutions = new List<string>();
-        private readonly TextBox _text;
+        private  List<Codeword> _codelist;
+       private readonly char[] LETTERS = new char[] { 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+        private readonly IPatternDictionary _pd; //new PatternDictionary.PatternDictionary(@"dictionary.txt");
 
-        public Work(string ciphertext, List<Codeword> codelist, TextBox txt)
+
+
+        public Work(string ciphertext)
         {
-            _ciphertext = ciphertext;
-            _text = txt;
-            _codelist = codelist;
+
+
+            //  pd.Edit();
+            //   pd.WriteToTextFile();
+             _pd = new PatternDictionary.PatternDictionary();
+            _ciphertext = ciphertext.ToUpper();
+          
+          
         }
 
         public List<string> Go()
-        {var charactermap = HelperExtensions.GetCharactermap();
-            return Solve(charactermap, _ciphertext);
+        {
+           
+
+
+          var letterMapping = HackSimpleSub(_ciphertext);
+
+
+            var answer = new List<string> {DecryptWithCipherletterMapping(_ciphertext, letterMapping)};
+            return answer;
+
         }
 
-        private List<string> Solve(Dictionary<char, char> charactermap, string checkstringvalue)
+        private string DecryptWithCipherletterMapping(string ciphertext, Dictionary<char, List<char>> letterMapping)
         {
-            _solutions = new List<string>();
-
-            var displayplaintext = SolveLoop(charactermap, checkstringvalue, _codelist);
-            if (displayplaintext.AllCaps())
+            foreach (var letter in LETTERS)
             {
-                _solutions.Add(displayplaintext);
-            }
-            else
-            {
-                var stringlist = WordSearch(charactermap, checkstringvalue);
-                foreach (var x in stringlist)
+                
+                if (letterMapping[letter].Count == 1)
                 {
-                    _solutions.Add(x);
-                }
-            }
-            return _solutions;
-        }
-
-
-        private IEnumerable<string> WordSearch(Dictionary<char, char> charactermap, string checkstringvalue)
-        {
-
-            var codewordwithfewestpossiblities = GetCodewordWithFewestPossiblities(_codelist.GetAllNonCapitalizedCodewords());
-
-            if (codewordwithfewestpossiblities.GetPossibleList() == null) return new List<string>();
-
-            var temp = codewordwithfewestpossiblities.GetPossibleList();
-            var tempstring = codewordwithfewestpossiblities.Text;
-
-
-            var tobereturnedList = new List<string>();
-            while (temp.Count > 0)
-            {
-                var reducedplaintextlist = new List<string> { temp[temp.Count - 1] };
-                codewordwithfewestpossiblities.SetPossiblities(reducedplaintextlist);
-                codewordwithfewestpossiblities.Text = tempstring;
-
-                temp.Remove(temp[temp.Count - 1]);
-
-                _codelist.Add(codewordwithfewestpossiblities);
-
-
-                var displayplaintext = SolveLoop(charactermap.CharacterMapDeepCopy(), checkstringvalue, _codelist.Copy());
-                tobereturnedList.Add(displayplaintext);
-                if (displayplaintext.AllCaps())
-                {
-                    if (tobereturnedList.Contains(displayplaintext)) continue;
-                    tobereturnedList.Add(displayplaintext);
-                    _codelist.Remove(codewordwithfewestpossiblities);
+                    ciphertext = ciphertext.Replace(letter, char.ToLower( letterMapping[letter][0]));
+                    Console.WriteLine(ciphertext + " " + letter +" "+ letterMapping[letter][0]);
                 }
                 else
                 {
-                    _codelist.Remove(codewordwithfewestpossiblities);
+                   ciphertext = ciphertext.Replace(letter, '_');
                 }
+                Console.WriteLine(ciphertext);
             }
-            return tobereturnedList;
+     
+            return ciphertext;
         }
 
-        private static Codeword GetCodewordWithFewestPossiblities(IEnumerable<Codeword> wordstobetried, int startingthreshold = 5000)
+        private static Dictionary<char, List<char>>  AddLettersToMapping(Dictionary<char, List<char>> letterMapping, Codeword codeword)
         {
-            var trythisone = new Codeword();
-            foreach (var t in
-                wordstobetried.Select(t => new { t, x = t.GetPossibleList().Count })
-                    .Where(t1 => t1.x < startingthreshold && t1.x > 0)
-                    .Select(t1 => t1.t))
+           
+            letterMapping = letterMapping.Copy();
+            var possibilities = codeword.GetPossibleList();
+        
+            if (possibilities.Count == 0)
             {
-                startingthreshold = t.GetPossibleList().Count;
-                trythisone = t;
+                return letterMapping;
             }
-
-            var tobereturned = trythisone.Copy();
-            return tobereturned;
-        }
-
-
-
-
-        private string SolveLoop(Dictionary<char, char> charactermap, string checkstringvalue, List<Codeword> codeList)
-        {
-            string displayplaintext1 = string.Empty;
-            bool loopcontinue = true;
-
-            int loopcounter = 0;
-            while (loopcontinue)
+            for (var i = 0; i < codeword.Text.Length; i++)
             {
-                HelperExtensions.RebuildPlaintextString(charactermap, codeList, _ciphertext);
-
-
-                displayplaintext1 = charactermap.Aggregate(_ciphertext, (current, x) => current.Replace(x.Value, x.Key));
-                if (displayplaintext1 == checkstringvalue || loopcounter > 15)
+                foreach (var word in possibilities)
                 {
-                    loopcontinue = false;
+                    var list = letterMapping[codeword.Plaintext[i]];
+                    if (!list.Contains(word[i]))
+                    {
+                        list.Add(word[i]);
+                    }
                 }
-                checkstringvalue = displayplaintext1;
-                loopcounter++;
+            }
+         
+            return letterMapping;
+        }
+
+        private Dictionary<char, List<char>> IntersectMapping(Dictionary<char, List<char>> mapA,
+            Dictionary<char, List<char>> mapB)
+        {
+            var intersectedMapping = GetCharactermap();
+            foreach (var letter in LETTERS)
+            {
+                if ((mapA[letter]).Count == 0)
+                {
+                    intersectedMapping[letter] = mapB[letter].Copy();
+                }
+                else if (mapB[letter].Count == 0)
+                {
+                    intersectedMapping[letter] = mapA[letter].Copy();
+                }
+                else
+                {  
+                    intersectedMapping[letter] =  mapA[letter].Intersect(mapB[letter]).ToList();
+                }
+            }
+            return intersectedMapping;
+        }
+
+
+        private Dictionary<char,List<char>> HackSimpleSub( string text)
+        {
+
+            var intersectMap = GetCharactermap();
+            _codelist = FormatTextForProcessing(text).Select(x => new Codeword(x, _pd)).ToList();
+            foreach (var word in _codelist)
+            {
+                var newmap = GetCharactermap();
+                 newmap = AddLettersToMapping(newmap, word);
+                intersectMap = IntersectMapping(intersectMap, newmap);
 
             }
 
-            return displayplaintext1;
+            return RemovedSolvedLettersFrommapping(intersectMap);
+
+        }
+
+        private Dictionary<char,List<char>> RemovedSolvedLettersFrommapping(Dictionary<char, List<char>> intersectMap)
+        {
+            intersectMap = intersectMap.Copy();
+
+            var loopAgain = true;
+            while (loopAgain)
+            {
+                loopAgain = false;
+                var solvedLetters = (from letter in LETTERS where intersectMap[letter].Count == 1 select intersectMap[letter][0]).ToList();
+                foreach (var letter in LETTERS)
+                {
+                    foreach (var s in solvedLetters)
+                    {
+                        if (intersectMap[letter].Count != 1 && intersectMap[letter].Contains(s))
+                        {
+                            intersectMap[letter].Remove(s);
+                            if (intersectMap[letter].Count == 1)
+                            {
+                                loopAgain = true;
+                            }
+                        }
+                    }
+                }
+            }
+            
+          return intersectMap;
         }
     }
 }
