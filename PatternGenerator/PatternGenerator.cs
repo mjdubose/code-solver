@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using HelpfulExtensions;
 
-
 namespace PatternGenerator
 {
     public class PatternGenerator

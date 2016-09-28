@@ -5,7 +5,7 @@ using PatternDictionary;
 using static WordPatForm.HelperExtensions;
 namespace WordPatForm
 {
-  
+
 
     internal class Work
     {
@@ -13,8 +13,8 @@ namespace WordPatForm
         //this is where the changes must occur for depth first search and character frequency stuff.
 
         private readonly string _ciphertext;
-        private  List<Codeword> _codelist;
-       private readonly char[] LETTERS = new char[] { 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+        private List<Codeword> _codelist;
+
         private readonly IPatternDictionary _pd; //new PatternDictionary.PatternDictionary(@"dictionary.txt");
 
 
@@ -25,51 +25,53 @@ namespace WordPatForm
 
             //  pd.Edit();
             //   pd.WriteToTextFile();
-             _pd = new PatternDictionary.PatternDictionary();
-            _ciphertext = ciphertext.ToUpper();
-          
-          
+            _pd = new PatternDictionary.PatternDictionary();
+            _ciphertext = ciphertext;
+
+
         }
 
         public List<string> Go()
         {
-           
 
 
-          var letterMapping = HackSimpleSub(_ciphertext);
+
+            var letterMapping = HackSimpleSub(_ciphertext);
 
 
-            var answer = new List<string> {DecryptWithCipherletterMapping(_ciphertext, letterMapping)};
+            var answer = new List<string> { DecryptWithCipherletterMapping(_ciphertext, letterMapping) };
             return answer;
 
         }
 
-        private string DecryptWithCipherletterMapping(string ciphertext, Dictionary<char, List<char>> letterMapping)
+        public string DecryptWithCipherletterMapping(string ciphertext, Dictionary<char, List<char>> letterMapping)
         {
-            foreach (var letter in LETTERS)
+            ciphertext = ciphertext.ToUpper();
+            var letters = new[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+            foreach (var letter in letters)
             {
-                
+
                 if (letterMapping[letter].Count == 1)
                 {
-                    ciphertext = ciphertext.Replace(letter, char.ToLower( letterMapping[letter][0]));
-                    Console.WriteLine(ciphertext + " " + letter +" "+ letterMapping[letter][0]);
+                    ciphertext = ciphertext.Replace(letter, char.ToLower(letterMapping[letter][0]));
+                    Console.WriteLine(ciphertext + " " + letter + " " + letterMapping[letter][0]);
                 }
                 else
                 {
-                   ciphertext = ciphertext.Replace(letter, '_');
+                    ciphertext = ciphertext.Replace(letter, '_');
                 }
                 Console.WriteLine(ciphertext);
             }
-     
+
             return ciphertext;
         }
 
-        private static Dictionary<char, List<char>>  AddLettersToMapping(Dictionary<char, List<char>> letterMapping, Codeword codeword)
+        private static Dictionary<char, List<char>> AddLettersToMapping(Dictionary<char, List<char>> letterMapping, Codeword codeword)
         {
-           
+
             letterMapping = letterMapping.Copy();
             var possibilities = codeword.GetPossibleList();
-        
+
             if (possibilities.Count == 0)
             {
                 return letterMapping;
@@ -85,15 +87,16 @@ namespace WordPatForm
                     }
                 }
             }
-         
+
             return letterMapping;
         }
 
-        private Dictionary<char, List<char>> IntersectMapping(Dictionary<char, List<char>> mapA,
-            Dictionary<char, List<char>> mapB)
+        private static Dictionary<char, List<char>> IntersectMapping(IReadOnlyDictionary<char, List<char>> mapA,
+            IReadOnlyDictionary<char, List<char>> mapB)
         {
+            var letters = new[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
             var intersectedMapping = GetCharactermap();
-            foreach (var letter in LETTERS)
+            foreach (var letter in letters)
             {
                 if ((mapA[letter]).Count == 0)
                 {
@@ -104,15 +107,15 @@ namespace WordPatForm
                     intersectedMapping[letter] = mapA[letter].Copy();
                 }
                 else
-                {  
-                    intersectedMapping[letter] =  mapA[letter].Intersect(mapB[letter]).ToList();
+                {
+                    intersectedMapping[letter] = mapA[letter].Intersect(mapB[letter]).ToList();
                 }
             }
             return intersectedMapping;
         }
 
 
-        private Dictionary<char,List<char>> HackSimpleSub( string text)
+        private Dictionary<char, List<char>> HackSimpleSub(string text)
         {
 
             var intersectMap = GetCharactermap();
@@ -120,7 +123,7 @@ namespace WordPatForm
             foreach (var word in _codelist)
             {
                 var newmap = GetCharactermap();
-                 newmap = AddLettersToMapping(newmap, word);
+                newmap = AddLettersToMapping(newmap, word);
                 intersectMap = IntersectMapping(intersectMap, newmap);
 
             }
@@ -129,32 +132,30 @@ namespace WordPatForm
 
         }
 
-        private Dictionary<char,List<char>> RemovedSolvedLettersFrommapping(Dictionary<char, List<char>> intersectMap)
+        private static Dictionary<char, List<char>> RemovedSolvedLettersFrommapping(Dictionary<char, List<char>> intersectMap)
         {
             intersectMap = intersectMap.Copy();
-
+            var letters = new[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
             var loopAgain = true;
             while (loopAgain)
             {
                 loopAgain = false;
-                var solvedLetters = (from letter in LETTERS where intersectMap[letter].Count == 1 select intersectMap[letter][0]).ToList();
-                foreach (var letter in LETTERS)
+                var solvedLetters = (from letter in letters where intersectMap[letter].Count == 1 select intersectMap[letter][0]).ToList();
+                foreach (var letter in letters)
                 {
                     foreach (var s in solvedLetters)
                     {
-                        if (intersectMap[letter].Count != 1 && intersectMap[letter].Contains(s))
+                        if (intersectMap[letter].Count == 1 || !intersectMap[letter].Contains(s)) continue;
+                        intersectMap[letter].Remove(s);
+                        if (intersectMap[letter].Count == 1)
                         {
-                            intersectMap[letter].Remove(s);
-                            if (intersectMap[letter].Count == 1)
-                            {
-                                loopAgain = true;
-                            }
+                            loopAgain = true;
                         }
                     }
                 }
             }
-            
-          return intersectMap;
+
+            return intersectMap;
         }
     }
 }

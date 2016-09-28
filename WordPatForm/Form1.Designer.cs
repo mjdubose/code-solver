@@ -1,11 +1,14 @@
-﻿namespace WordPatForm
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace WordPatForm
 {
     partial class FrmCipherSolver
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -96,10 +99,10 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtCipher;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtSolve;
-        private System.Windows.Forms.Button btnSolve;
+        private TextBox txtCipher;
+        private Label label1;
+        private TextBox txtSolve;
+        private Button btnSolve;
     }
 }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 
-
 namespace WordPatForm
 {
     public partial class FrmCipherSolver : Form
